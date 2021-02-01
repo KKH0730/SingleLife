@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "237639415089",
+    "project_id": "singlelife-6ac24",
+    "storage_bucket": "singlelife-6ac24.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:237639415089:android:2e34f99b76657a59986c10",
+        "android_client_info": {
+          "package_name": "studio.seno.singlelife"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "237639415089-dlbgberdood7rjlu7nifg2q36c0eh2qj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcia1I8E3wNqYwCfQd6Rd2ZhKLgZ6JQ20"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "237639415089-dlbgberdood7rjlu7nifg2q36c0eh2qj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
