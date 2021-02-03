@@ -1,4 +1,4 @@
-package studio.seno.singlelife
+package studio.seno.singlelife.util
 
 interface ViewControlListener {
     fun finishCurrentActivity()

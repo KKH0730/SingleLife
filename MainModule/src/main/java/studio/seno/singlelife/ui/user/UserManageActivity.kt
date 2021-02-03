@@ -3,7 +3,7 @@ package studio.seno.singlelife.ui.user
 import android.os.Bundle
 import studio.seno.commonmodule.BaseActivity
 import studio.seno.singlelife.R
-import studio.seno.singlelife.ViewControlListener
+import studio.seno.singlelife.util.ViewControlListener
 
 class UserManageActivity : BaseActivity(), ViewControlListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,6 +14,4 @@ class UserManageActivity : BaseActivity(), ViewControlListener {
     override fun finishCurrentActivity() {
         finish()
     }
-
-
 }

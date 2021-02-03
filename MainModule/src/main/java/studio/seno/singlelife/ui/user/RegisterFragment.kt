@@ -6,19 +6,18 @@ import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.royrodriguez.transitionbutton.TransitionButton
 import org.jetbrains.anko.support.v4.startActivity
+import studio.seno.commonmodule.CustomToast
 import studio.seno.singlelife.MainActivity
 import studio.seno.singlelife.R
-import studio.seno.singlelife.ViewControlListener
+import studio.seno.singlelife.util.ViewControlListener
 import studio.seno.singlelife.databinding.FragmentRegisterBinding
+import studio.seno.singlelife.module.CommonFunction
 import studio.seno.singlelife.util.TextUtils
 import studio.seno.singlelife.viewmodel.UserViewModel
 
@@ -69,7 +68,7 @@ class RegisterFragment : Fragment(), View.OnClickListener {
             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         } else if (v?.id == R.id.register_Btn) {
             binding.registerBtn.startAnimation()
-            closeKeyboard(binding.emailInput)
+            CommonFunction.closeKeyboard(requireContext(), binding.emailInput)
 
             val email: String = binding.emailInput.text.toString().trim()
             val password: String = binding.passInput.text.toString().trim()
@@ -79,7 +78,6 @@ class RegisterFragment : Fragment(), View.OnClickListener {
 
             if (email.isEmpty() || nickName.isEmpty() || password.isEmpty()) {
                 binding.registerBtn.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE, null)
-
             } else {
                 viewModel.registerUser(email, password)
                 viewModel.getRegisterLiveData().observe(requireActivity(), {
@@ -93,21 +91,12 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                             TransitionButton.StopAnimationStyle.SHAKE,
                             null
                         )
-                        Toast.makeText(
-                            requireContext(),
-                            resources.getString(R.string.register_error),
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        CustomToast(requireContext(), getString(R.string.register_error)).show()
                     }
                 })
             }
 
 
         }
-    }
-
-    private fun closeKeyboard(editText: EditText) {
-        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(editText.windowToken, 0)
     }
 }

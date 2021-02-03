@@ -13,8 +13,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import studio.seno.commonmodule.CustomToast
 import studio.seno.singlelife.R
 import studio.seno.singlelife.databinding.FragmentFindPasswordBinding
+import studio.seno.singlelife.module.CommonFunction
 import studio.seno.singlelife.util.ProgressGenerator
 import studio.seno.singlelife.viewmodel.UserViewModel
 
@@ -40,30 +42,21 @@ class FindPasswordFragment : Fragment(), ProgressGenerator.OnCompleteListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         binding.sendEmail.setOnClickListener {
-            closeKeyboard(binding.emailInput)
+            CommonFunction.closeKeyboard(requireContext(), binding.emailInput)
             var emailAddress = binding.emailInput.text.toString().trim()
-            viewModel.sendFindEmail(binding.emailInput.text.toString().trim())
 
             if(emailAddress.isEmpty()) {
-                Toast.makeText(
-                    requireContext(),
-                    resources.getString(R.string.find_password_announcement1),
-                    Toast.LENGTH_LONG
-                ).show()
+                CustomToast(requireContext(), getString(R.string.find_password_announcement1)).show()
             } else {
+                viewModel.sendFindEmail(emailAddress)
                 viewModel.getFindPasswordListData().observe(requireActivity(), {
                     if (it) {
                         progressGenerator.start(binding.sendEmail)
                         binding.emailInput.isEnabled = false
                         binding.sendEmail.isEnabled = false
                     } else
-                        Toast.makeText(
-                            requireContext(),
-                            resources.getString(R.string.find_password_announcement1),
-                            Toast.LENGTH_LONG
-                        ).show()
+                        CustomToast(requireContext(), getString(R.string.find_password_announcement1)).show()
                 })
             }
         }
@@ -73,18 +66,7 @@ class FindPasswordFragment : Fragment(), ProgressGenerator.OnCompleteListener {
 
 
     override fun onComplete() {
-        Toast.makeText(
-            requireContext(),
-            resources.getString(R.string.find_password_announcement2),
-            Toast.LENGTH_LONG
-        ).show()
-
+        CustomToast(requireContext(), getString(R.string.find_password_announcement2)).show()
         findNavController().navigate(R.id.action_findPasswordFragment_to_loginFragment)
     }
-
-    private fun closeKeyboard(editText: EditText) {
-        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(editText.windowToken, 0)
-    }
-
 }

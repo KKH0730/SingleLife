@@ -1,4 +1,4 @@
-package studio.seno.singlelife
+package studio.seno.singlelife.util
 
 abstract class Result<T> private constructor() {
     class Success<T>(var data: T) : Result<T>()
